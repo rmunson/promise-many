@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+	<title>mem-storage</title>
+	<script type="text/javascript" src="../node_modules/requirejs/require.js"></script>
+	<script type="text/javascript" src="../node_modules/mocha/mocha.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="../node_modules/mocha/mocha.css">
+	<style>
+		#mocha .test code, #mocha .test pre {
+			white-space:pre-line;
+		}
+	</style>
+</head>
+<body>
+	<div id="mocha"></div>
+	<script type="text/javascript">
+		mocha.setup({
+			ui : 'bdd',
+			reporter : ['html'],
+			globals  : ['results']
+		});
+		mocha.checkLeaks();
+		require.config({
+			baseUrl : '../node_modules/'
+		});
+		require([
+			'chai/chai', 
+			'../promise-many'
+		],function( chai, promiseMany){
+			var expect=chai.expect;
+			window.promiseMany = promiseMany;
+			describe("promise-many",function(){
+				it("should return a promise",function(){
+					expect(promiseMany([1,2,3])).to.be.an.instanceOf(Promise);
+				});
+				it("should accept any array-like object",function(done){
+					var testObjects = [
+						promiseMany([1,2,3]).then(function(result){
+							expect(result).to.have.members([1,2,3])
+							return result;
+						}),
+						promiseMany({ 0 : 1, 1 : 2, 2 : 3, length : 3}).then(function(result){
+							expect(result).to.have.members([1,2,3])
+							return result;
+						})
+					];
+					Promise.all(testObjects).then(function(){
+						done();
+					},function(huh){
+						throw new Error(huh);
+						done();
+					});
+				});
+				it("should resolve if all promises resolved",function(done){
+					promiseMany([1,2,new Promise(function(resolve,reject){
+						setTimeout(function(){resolve(3)},20)
+					})]).then(function(result){
+						expect(result).to.be.ok;
+						expect(result.length).to.equal(3);
+						expect(result).to.have.members([1,2,3])
+						done();
+					},function(){
+						throw new Error("Nope");
+						done();
+					});
+				});
+				it("should reject if one or more promises reject",function(done){
+					promiseMany([1,Promise.reject(2),new Promise(function(resolve,reject){
+						setTimeout(function(){resolve(3)},20)
+					})]).then(function(){
+						throw new Error("Nope");
+						done();
+					},function(result){
+						expect(result).to.be.ok;
+						expect(result.length).to.equal(3);
+						expect(result).to.have.members([1,2,3])
+						done();
+					});
+				});
+			});
+			console.time("mocha");
+			mocha.run();
+			console.timeEnd("mocha");
+		});
+	</script>
+</body>
+</html>

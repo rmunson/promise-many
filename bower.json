@@ -1,0 +1,8 @@
+{
+  "name": "promise-many",
+  "description": "Create a Promise that resolves or rejects after all Promises and values of an iterable have been evaluated.",
+  "main": "promise-many.js",
+  "license": "MIT",
+  "author": "Russell Munson",
+  "repository": "git@github.com:rmunson/promise-many.git"
+}
