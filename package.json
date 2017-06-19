@@ -6,6 +6,13 @@
   "license": "MIT",
   "author": "Russell Munson",
   "repository": "git@github.com:rmunson/promise-many.git",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "devDependencies": {
     "chai": "^4.0.2",
     "mocha": "^3.4.2",

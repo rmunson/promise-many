@@ -4,5 +4,12 @@
   "main": "promise-many.js",
   "license": "MIT",
   "author": "Russell Munson",
-  "repository": "git@github.com:rmunson/promise-many.git"
+  "repository": "git@github.com:rmunson/promise-many.git",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }
