@@ -2,7 +2,7 @@
     'use strict'
     define(function(require, exports, module){
         var toArray = Array.from ? Array.from : (function(){
-            ;
+            var slice = Array.prototype.slice;
             return function(convert){
                 return slice.call(convert,0);
             }
