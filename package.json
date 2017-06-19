@@ -6,6 +6,9 @@
   "license": "MIT",
   "author": "Russell Munson",
   "repository": "git@github.com:rmunson/promise-many.git",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "ignore": [
     "**/.*",
     "node_modules",
