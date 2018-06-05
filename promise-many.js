@@ -6,7 +6,7 @@
         // CommonJS
         module.exports = factory();
     } else{
-        root.MessageServiceTopic=factory();
+        root.promiseMany = factory();
     }
 })(function () {
     'use strict'
