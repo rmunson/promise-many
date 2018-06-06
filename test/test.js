@@ -1,11 +1,11 @@
 ;(function(define){
     'use strict'
-    define(function(require,exports,module){
+    define(function(require,exports,module, global){
         var chai = require("chai/chai");
         var promiseMany = require("../promise-many");
         var expect=chai.expect;
 
-        window.promiseMany = promiseMany;
+        global.promiseMany = promiseMany;
 
         describe("promise-many",function(){
             it("should return a promise",function(){
@@ -58,6 +58,6 @@
         });
     });
 })(typeof module === 'object' && module.exports && typeof define !== 'function'
-    ? function (factory) { module.exports = factory(require, module.exports, module); }
+    ? function (factory) { module.exports = factory(require, module.exports, module, this) }
     : define
 );

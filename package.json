@@ -1,6 +1,6 @@
 {
   "name": "promise-many",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Create a Promise that resolves or rejects after all Promises and values of an iterable have been evaluated.",
   "main": "promise-many.js",
   "license": "MIT",
@@ -16,6 +16,9 @@
     "test",
     "tests"
   ],
+  "scripts": {
+    "test": "mocha test/test.js"
+  },
   "devDependencies": {
     "chai": "^4.0.2",
     "mocha": "^3.4.2",

@@ -46,17 +46,16 @@
      */
     return function(many){
         var finalPromise = new Promise(executor);
-        var finalResolve = _resolve;
+        var finalOperation = _resolve;
         var finalReject = _reject;
-        var isRejected = false;
 
         Promise.all(
             toArray(many).map(resolveFor, function delayRejection(val){
-                isRejected = true;
+                finalOperation = finalReject;
                 return val;
             })
         ).then(function finalizePromise(values){
-            (isRejected ? finalReject : finalResolve)(values);
+            finalOperation(values);
         });
         return finalPromise;
     }
